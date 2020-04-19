@@ -29,3 +29,4 @@ for i in range(r):
     print()
     if(i!=8):
         print("-------------------------")
+#print("Sudoku sample")
