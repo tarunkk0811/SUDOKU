@@ -1,15 +1,30 @@
-#print output logic
-def prin():
-    for i in range(r):
-        for j in range(c):
-            if((j+1)%3==0 and (j+1)!=9):
-                print(""+str(mat[i][j]),end="         |")
+import tkinter as tk
 
-            else:
-                print(mat[i][j],end="         ")
-        print()
-        if(i!=8):
-            print("-------------------------")
+class ExampleApp(tk.Tk):
+    def __init__(self):
+        tk.Tk.__init__(self)
+        t = SimpleTable(self, 9,9)
+        t.pack(side="top", fill="x")
+
+class SimpleTable(tk.Frame):
+    def __init__(self, parent, rows=9, columns=9):
+        # use black background so it "peeks through" to 
+        # form grid lines
+        tk.Frame.__init__(self, parent, background="black")
+        self._widgets = []
+        for i in range(rows):
+            current_row = []
+            for j in range(columns):
+                label = tk.Label(self, text="%s" % (mat[i][j]), 
+                                 borderwidth=0, width=15)
+                label.grid(row=i, column=j, sticky="nsew", padx=1, pady=1)
+                current_row.append(label)
+            self._widgets.append(current_row)
+
+        for column in range(columns):
+            self.grid_columnconfigure(column, weight=1)
+
+
 
 #individual box check for possible ele
 def boxcheck(mat,i,j,res_lis):
@@ -54,26 +69,32 @@ def box(mat,i,j,rc_result_list):
 
 
 #Possible elements for row and col units
-def Pele():
+def Pele(mat,r,c):
     for i in range(r):
         for j in range(c):
             el=[str(i) for i in range(1,10)]
             if(mat[i][j]==" "):
                 for k in range(r):
-                    if (mat[k][j] in el) and len(mat[k][j])==1:
+                    #keep the column constant and traverse through different rows
+                    if (mat[k][j] in el) and len(mat[k][j])==1: 
                         #print(mat[k][j])
                         el.pop(el.index(mat[k][j]))
                 for k in range(c):
+                    #keep the row constant and traverse through different columns
                     if (mat[i][k] in el) and len(mat[k][j])==1:
                         #print(mat[i][k])
                         el.pop(el.index(mat[i][k]))
                 ress=box(mat,i,j,el)
                 mat[i][j]="".join(ress)
-                
 
+
+
+
+
+
+#Rows and Coloumns
 r=9
 c=9
-
 #Read input
 s="53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79"
 #s=input()
@@ -88,5 +109,6 @@ for i in range(0,len(s),9):
         else:
             mat[k].append(" ")
     k+=1
-Pele()
-prin()
+Pele(mat,r,c)
+app = ExampleApp()
+app.mainloop()
