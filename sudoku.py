@@ -26,6 +26,23 @@ class SimpleTable(tk.Frame):
 
 
 
+def del_Eles(mat,i,j):
+    for k in range(c):
+        if(j!=k):
+            if(len(mat[i][k])>1):
+                ele=mat[i][k]
+                if(mat[i][j] in ele):
+                    l=[x for x in ele]
+                    #print(mat[i][j])
+                    l.pop(l.index(mat[i][j]))
+                    if(len(l)==1):
+                        mat[i][k]="".join(l)
+                        del_Eles(mat,i,k)
+                    else:
+                        mat[i][k]="".join(l)
+                
+            
+
 #individual box check for possible ele
 def boxcheck(mat,i,j,res_lis):
     for x in range(i,i+3):
@@ -85,7 +102,11 @@ def Pele(mat,r,c):
                         #print(mat[i][k])
                         el.pop(el.index(mat[i][k]))
                 ress=box(mat,i,j,el)
-                mat[i][j]="".join(ress)
+                if(len(ress)==1):
+                    mat[i][j]="".join(ress)+"z"
+                else:
+                    mat[i][j]="".join(ress)
+        
 
 
 
@@ -110,5 +131,13 @@ for i in range(0,len(s),9):
             mat[k].append(" ")
     k+=1
 Pele(mat,r,c)
+for i in range(r):
+    for j in range(c):
+        if('z' in mat[i][j]):
+            l=[x for x in mat[i][j]]
+            l.pop(1)
+            mat[i][j]=l[0]
+            del_Eles(mat,i,j)
+
 app = ExampleApp()
 app.mainloop()
