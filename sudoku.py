@@ -27,13 +27,13 @@ class SimpleTable(tk.Frame):
 
 
 def del_Eles(mat,i,j):
-    for k in range(c):
+    #for deleting fixed elements in rows
+    for k in range(c):  #to traverse through rows
         if(j!=k):
             if(len(mat[i][k])>1):
                 ele=mat[i][k]
                 if(mat[i][j] in ele):
                     l=[x for x in ele]
-                    #print(mat[i][j])
                     l.pop(l.index(mat[i][j]))
                     if(len(l)==1):
                         mat[i][k]="".join(l)
