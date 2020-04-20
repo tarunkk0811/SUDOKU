@@ -40,7 +40,20 @@ def del_Eles(mat,i,j):
                         del_Eles(mat,i,k)
                     else:
                         mat[i][k]="".join(l)
-                
+     #for deleting fixed elements in columns           
+    for y in range(r):
+        if(i!=y): #ignore ele which we are searching for
+            if(len(mat[y][j])>1):
+                ele=mat[y][j]
+                if(mat[i][j] in ele):
+                    l=[x for x in ele]
+                    l.pop(l.index(mat[i][j]))
+                    if(len(l)==1):
+                        mat[y][j]="".join(l)
+                        del_Eles(mat,y,j)
+                    else:
+                        mat[y][j]="".join(l)
+    
             
 
 #individual box check for possible ele
@@ -130,6 +143,7 @@ for i in range(0,len(s),9):
         else:
             mat[k].append(" ")
     k+=1
+
 Pele(mat,r,c)
 for i in range(r):
     for j in range(c):
