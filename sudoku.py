@@ -53,47 +53,68 @@ def del_Eles(mat,i,j):
                         del_Eles(mat,y,j)
                     else:
                         mat[y][j]="".join(l)
+                        
+    #for deleting fixed elements in the box unit
+    box(mat,i,j,[],boxDel)
+    #Here for this approach i ve given many parameters to resuse the box function code
+    #This step deletes the fixed eles from the respective box unit
+                        
     
             
 
 #individual box check for possible ele
-def boxcheck(mat,i,j,res_lis):
+def boxcheck(mat,i,j,l,o,res_lis):
     for x in range(i,i+3):
         for y in range(j,j+3):
             if(mat[x][y] in res_lis) and (len(mat[x][y])==1):
                 res_lis.pop(res_lis.index(mat[x][y]))
     return res_lis
+
+#Box removal function                
+def boxDel(mat,i,j,x,y,l):
+    for a in range(i,i+3):
+        for b in range(j,j+3):
+            if(mat[x][y] in mat[a][b]) and (x!=a or y!=b):
+                ele=mat[a][b]
+                ele=[m for m in ele]
+                ele.pop(ele.index(mat[x][y]))
+                if(len(ele)==1):
+                    mat[a][b]="".join(ele)
+                    del_Eles(mat,a,b)
+                else:
+                    mat[a][b]="".join(ele)
                 
+
         
 #possible element for box unit
-def box(mat,i,j,rc_result_list):
+def box(mat,i,j,rc_result_list,fun):
     #box1
     if(i<3 and j<3):
-        return boxcheck(mat,0,0,rc_result_list)
+        return fun(mat,0,0,i,j,rc_result_list)
     #box2
     elif(i<3 and j>2 and j<6):
-        return boxcheck(mat,0,3,rc_result_list)
+        return fun(mat,0,3,i,j,rc_result_list)
     #box3
     elif(i<3 and j>5):
-        return boxcheck(mat,0,6,rc_result_list)
+        return fun(mat,0,6,i,j,rc_result_list)
     #box4
     elif(i>2 and i<6 and j<3):
-        return boxcheck(mat,3,0,rc_result_list)
+        return fun(mat,3,0,i,j,rc_result_list)
     #box5
     elif(i>2 and i<6 and j>2 and j<6):
-        return boxcheck(mat,3,3,rc_result_list)
+        return fun(mat,3,3,i,j,rc_result_list)
     #box6
     elif(i>2 and i<6 and j>5):
-        return boxcheck(mat,3,6,rc_result_list)
+        return fun(mat,3,6,i,j,rc_result_list)
     #box7
     elif(i>5 and j<3):
-        return boxcheck(mat,6,0,rc_result_list)
+        return fun(mat,6,0,i,j,rc_result_list)
     #box8
     elif(i>5 and j>2 and j<6):
-        return boxcheck(mat,6,3,rc_result_list)
+        return fun(mat,6,3,i,j,rc_result_list)
     #box9
     elif(i>5 and j>5):
-        return boxcheck(mat,6,6,rc_result_list)
+        return fun(mat,6,6,i,j,rc_result_list)
         
     
 
@@ -114,16 +135,12 @@ def Pele(mat,r,c):
                     if (mat[i][k] in el) and len(mat[k][j])==1:
                         #print(mat[i][k])
                         el.pop(el.index(mat[i][k]))
-                ress=box(mat,i,j,el)
+                ress=box(mat,i,j,el,boxcheck)
                 if(len(ress)==1):
                     mat[i][j]="".join(ress)+"z"
                 else:
                     mat[i][j]="".join(ress)
         
-
-
-
-
 
 
 #Rows and Coloumns
@@ -152,6 +169,7 @@ for i in range(r):
             l.pop(1)
             mat[i][j]=l[0]
             del_Eles(mat,i,j)
+
 
 app = ExampleApp()
 app.mainloop()
