@@ -148,6 +148,7 @@ r=9
 c=9
 #Read input
 s="53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79"
+#s=".2.6.8...58...97......4....37....5..6.......4..8....13....2......98...36...3.6.9."
 #s=input()
 #Generate matrix mat
 mat=[]
@@ -170,6 +171,10 @@ for i in range(r):
             mat[i][j]=l[0]
             del_Eles(mat,i,j)
 
+for i in range(r):
+    for j in range(c):
+        if(len(mat[i][j])==1):
+            del_Eles(mat,i,j)
 
 app = ExampleApp()
 app.mainloop()
