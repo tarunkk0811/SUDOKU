@@ -1,4 +1,5 @@
 import tkinter as tk
+from flask import Flask,render_template
 
 class ExampleApp(tk.Tk):
     def __init__(self):
@@ -181,5 +182,26 @@ for i in range(r):
         if(len(mat[i][j])==1):
             del_Eles(mat,i,j)
 
-app = ExampleApp()
-app.mainloop()
+#app = ExampleApp()
+#app.mainloop()
+
+final={}
+k="c0"
+m=0
+for i in range(9):
+    for j in range(9):
+        final[eval('k')]=mat[i][j]
+        k="c"+str(m+1)
+        m+=1
+
+
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('home.html',c0=final['c0'],c1=final['c1'],c2=final['c2'],c3=final['c3'],c4=final['c4'],c5=final['c5'],c6=final['c6'],c7=final['c7'],c8=final['c8'],c9=final['c9'],c10=final['c10'],c11=final['c11'],c12=final['c12'],c13=final['c13'],c14=final['c14'],c15=final['c15'],c16=final['c16'],c17=final['c17'],c18=final['c18'],c19=final['c19'],c20=final['c20'],c21=final['c21'],c22=final['c22'],c23=final['c23'],c24=final['c24'],c25=final['c25'],c26=final['c26'],c27=final['c27'],c28=final['c28'],c29=final['c29'],c30=final['c30'],c31=final['c31'],c32=final['c32'],c33=final['c33'],c34=final['c34'],c35=final['c35'],c36=final['c36'],c37=final['c37'],c38=final['c38'],c39=final['c39'],c40=final['c40'],c41=final['c41'],c42=final['c42'],c43=final['c43'],c44=final['c44'],c45=final['c45'],c46=final['c46'],c47=final['c47'],c48=final['c48'],c49=final['c49'],c50=final['c50'],c51=final['c51'],c52=final['c52'],c53=final['c53'],c54=final['c54'],c55=final['c55'],c56=final['c56'],c57=final['c57'],c58=final['c58'],c59=final['c59'],c60=final['c60'],c61=final['c61'],c62=final['c62'],c63=final['c63'],c64=final['c64'],c65=final['c65'],c66=final['c66'],c67=final['c67'],c68=final['c68'],c69=final['c69'],c70=final['c70'],c71=final['c71'],c72=final['c72'],c73=final['c73'],c74=final['c74'],c75=final['c75'],c76=final['c76'],c77=final['c77'],c78=final['c78'],c79=final['c79'],c80=final['c80'])
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
